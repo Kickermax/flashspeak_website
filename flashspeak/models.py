@@ -17,6 +17,14 @@ class Language(models.Model):
         return self.language_name
 
 
+class Topic(models.Model):
+    topic_id = models.AutoField(primary_key=True)
+    topic_name = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.topic_name
+
+
 class Deck(models.Model):
     """
     Model representing a deck of cards (not a single card)
@@ -24,8 +32,12 @@ class Deck(models.Model):
     deck_id = models.AutoField(primary_key=True)
     deck_name = models.CharField(max_length=255)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
-    topic = models.CharField(max_length=255, null=True, blank=True)
-    status = models.PositiveSmallIntegerField(default=0)
+    topic = models.ForeignKey(Topic, models.SET_NULL, null=True)
+    STATUS_CHOICES = [
+        (0, 'Not learned'),
+        (1, 'Learned'),
+    ]
+    status = models.PositiveSmallIntegerField(choices=STATUS_CHOICES, default=0)
     creation_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -42,7 +54,7 @@ class Deck(models.Model):
             str: Absolute URL of the Deck of Cards instance.
         """
         return reverse('view_name', kwargs={'deck_id': self.deck_id})
-        #todo шаблон написать потом
+        # todo шаблон написать потом
 
 
 class Card(models.Model):
@@ -77,5 +89,4 @@ class Card(models.Model):
             str: Absolute URL of the Card instance.
         """
         return reverse('view_name', kwargs={'card_id': self.card_id})
-        #todo шаблон написать потом
-
+        # todo шаблон написать потом
