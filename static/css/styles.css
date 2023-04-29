@@ -571,6 +571,7 @@ input[type="checkbox"] {
 
 .nav-link {
     display: block;
+    font-size: 20px;
     padding-top: 0.625rem;
     padding-bottom: 0.75rem;
     color: #0A1D64;
@@ -1129,6 +1130,14 @@ a:hover.back-to-top {
         padding-left: 0;
         padding-right: 0;
         padding-top: 1.75rem;
+    }
+
+    .base_navbar {
+        background-color: transparent;
+        flex-wrap: nowrap;
+        justify-content: start;
+        padding-left: 0;
+        padding-right: 0;
     }
 
     .navbar-collapse {
